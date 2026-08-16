@@ -18,15 +18,15 @@ if (app.Environment.IsDevelopment())
 }
 
 // Obtener todas las pets
-app.MapGet("/api/pets", async (AppDbContext db) =>
+app.MapGet("/api/pet", async (AppDbContext db) =>
     await db.Pets.ToListAsync());
 
 // Obtener mascota por Id
-app.MapGet("/api/pets/{id}", async (int id, AppDbContext db) =>
+app.MapGet("/api/pet/{id}", async (int id, AppDbContext db) =>
     await db.Pets.FindAsync(id) is Pet pet ? Results.Ok(pet) : Results.NotFound());
 
 // Crear nueva mascota
-app.MapPost("/api/pets", async (Pet pet, AppDbContext db) =>
+app.MapPost("/api/pet", async (Pet pet, AppDbContext db) =>
 {
     db.Pets.Add(pet);
     await db.SaveChangesAsync();
