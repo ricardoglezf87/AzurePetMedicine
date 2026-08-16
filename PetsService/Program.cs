@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using PetsService.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
