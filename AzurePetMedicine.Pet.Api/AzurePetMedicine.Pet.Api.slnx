@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="../AzurePetMedicine.Common/AzurePetMedicine.Common.csproj" />
+  <Project Path="../AzurePetMedicine.Hospital.Domain/AzurePetMedicine.Hospital.Domain.csproj" />
+  <Project Path="../AzurePetMedicine.Pet.Domain/AzurePetMedicine.Pet.Domain.csproj" />
+  <Project Path="../AzurePetMedicine.Rescue.Domain/AzurePetMedicine.Rescue.Domain.csproj" />
+  <Project Path="AzurePetMedicine.Pet.Api.csproj" />
+</Solution>
