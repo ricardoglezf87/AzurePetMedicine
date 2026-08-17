@@ -4,3 +4,6 @@ PetsService/obj/
 PetsService/bin/
 RescuesService/obj/
 RescuesService/bin/
+*.db-wal
+*.db
+*.db-shm
