@@ -3,5 +3,6 @@
   <Project Path="../AzurePetMedicine.Hospital.Domain/AzurePetMedicine.Hospital.Domain.csproj" />
   <Project Path="../AzurePetMedicine.Pet.Domain/AzurePetMedicine.Pet.Domain.csproj" />
   <Project Path="../AzurePetMedicine.Rescue.Domain/AzurePetMedicine.Rescue.Domain.csproj" />
+  <Project Path="../AzurePetMedicine.ServiceBus/AzurePetMedicine.ServiceBus.csproj" Id="0a5da316-d25f-4028-9a52-6b8fb92366fb" />
   <Project Path="AzurePetMedicine.Pet.Api.csproj" />
 </Solution>

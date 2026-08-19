@@ -28,7 +28,7 @@ namespace AzurePetMedicine.Pet.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while processing CreatePetCommand.");
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "An error occurred while processing the request.");
             }
         }
@@ -43,7 +43,7 @@ namespace AzurePetMedicine.Pet.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while processing UpdatePetCommand.");
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "An error occurred while processing the request.");
             }
         }
@@ -53,13 +53,12 @@ namespace AzurePetMedicine.Pet.Api.Controllers
         {
             try
             {
-                // Llamamos a la consulta corregida que devuelve List<Pet>
                 var pets = await petApplicationServices.HandleQueryAsync(new GetAllPetsQuery());
                 return Ok(pets);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while getting all pets.");
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "An error occurred while processing the request.");
             }
         }
@@ -79,7 +78,7 @@ namespace AzurePetMedicine.Pet.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error getting pet {id}");
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "An error occurred while processing the request.");
             }
         }
@@ -99,10 +98,24 @@ namespace AzurePetMedicine.Pet.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error getting pet {id}");
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "An error occurred while processing the request.");
             }
         }
 
+        [HttpPost("flagforadoption")]
+        public async Task<ActionResult> Post(FlagPetForAdoptionCommand command)
+        {
+            try
+            {
+                await petApplicationServices.HandleCommandAsync(command);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, "An error occurred while processing the request.");
+            }
+        }
     }
 }

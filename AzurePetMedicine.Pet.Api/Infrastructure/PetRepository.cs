@@ -14,7 +14,7 @@ namespace AzurePetMedicine.Pet.Api.Infrastructure
             _context = context;
         }
 
-        public async Task<Domain.Entities.Pet> GetPetAsync(Guid id)
+        public async Task<Domain.Entities.Pet?> GetPetAsync(Guid id)
         {
             return await _context.Pets.FindAsync(id);            
         }

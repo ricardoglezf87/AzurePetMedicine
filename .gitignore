@@ -13,3 +13,5 @@ AzurePetMedicine.Pet.Api/.vs/
 AzurePetMedicine.Pet.Api/bin/
 AzurePetMedicine.Pet.Api/obj/
 .vs/
+AzurePetMedicine.ServiceBus/obj/
+AzurePetMedicine.ServiceBus/bin/

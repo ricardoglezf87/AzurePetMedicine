@@ -3,20 +3,28 @@ using AzurePetMedicine.Pet.Domain.Events;
 using AzurePetMedicine.Pet.Domain.IntegrationEvents;
 using AzurePetMedicine.Pet.Domain.Repositories;
 using AzurePetMedicine.Pet.Domain.ValueObjects;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using AzurePetMedicine.ServiceBus.Infrastructure;
 
 namespace AzurePetMedicine.Pet.Api.ApplicationServices
 {   
     public class PetApplicationServices
     {
         private readonly IPetRepository PetRepository;
+        private readonly IEventPublisher EventPublisher;
+        private readonly IConfiguration Configuration;
 
-        public PetApplicationServices(IPetRepository petRepository)
+        public PetApplicationServices(IPetRepository petRepository,
+            IConfiguration configuration,
+            IEventPublisher eventPublisher)
         {
             PetRepository = petRepository;
-            DomainEvents.PetFlaggedForAdoption.Register( c=>
+            Configuration = configuration;
+            EventPublisher = eventPublisher;
+
+            DomainEvents.PetFlaggedForAdoption.Register(async c=>
             {
                 var integrationEventHandler = new PetFlaggedForAdoptionIntegrationEvent(c.Id, c.Name, c.Kind, c.Age);
+                await EventPublisher.PublishAsync(integrationEventHandler,"adoption-topic");
             });
         }
 
@@ -63,7 +71,6 @@ namespace AzurePetMedicine.Pet.Api.ApplicationServices
                 throw new Exception($"Pet with Id {petId} not found.");
             }
             pet.FlagForAdoption();
-            await PetRepository.UpdateAsync(pet);
         }
 
         public async Task<Domain.Entities.Pet> HandleQueryAsync(GetPetByIdQuery query)
@@ -82,5 +89,6 @@ namespace AzurePetMedicine.Pet.Api.ApplicationServices
         {
             return await PetRepository.GetAllPetsAsync();
         }
+
     }
 }
