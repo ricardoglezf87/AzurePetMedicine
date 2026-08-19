@@ -1,4 +1,4 @@
-using AzurePetMedicine.Common;
+using AzurePetMedicine.Common.Events;
 
 namespace AzurePetMedicine.Pet.Domain.IntegrationEvents
 {

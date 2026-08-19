@@ -1,7 +1,7 @@
-﻿using AzurePetMedicine.Pet.Api.ApplicationServices;
+﻿using AzurePetMedicine.Common.Domains;
+using AzurePetMedicine.Pet.Api.ApplicationServices;
 using AzurePetMedicine.Pet.Api.Extensions;
 using AzurePetMedicine.Pet.Api.Infrastructure;
-using AzurePetMedicine.Pet.Domain.Repositories;
 using AzurePetMedicine.ServiceBus.Infrastructure;
 
 namespace AzurePetMedicine.Pet.Api
@@ -20,7 +20,7 @@ namespace AzurePetMedicine.Pet.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddPetDBContext(Configuration);
-            services.AddScoped<IPetRepository, PetRepository>();
+            services.AddScoped<IGenericRepository<Domain.Entities.Pet>, PetRepository>();
             services.AddScoped<PetApplicationServices>();
             services.AddControllers();
             services.AddEndpointsApiExplorer();

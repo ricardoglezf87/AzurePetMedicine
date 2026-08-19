@@ -1,11 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using AzurePetMedicine.Pet.Domain.Repositories;
+﻿using AzurePetMedicine.Common.Domains;
 using Microsoft.EntityFrameworkCore;
 
 namespace AzurePetMedicine.Pet.Api.Infrastructure
 {
-    public class PetRepository : IPetRepository
+    public class PetRepository : IGenericRepository<Domain.Entities.Pet>
     {
         private readonly PetDbContext _context;
 
@@ -14,14 +12,14 @@ namespace AzurePetMedicine.Pet.Api.Infrastructure
             _context = context;
         }
 
-        public async Task<Domain.Entities.Pet?> GetPetAsync(Guid id)
+        public async Task<Domain.Entities.Pet?> GetByIdAsync(Guid id)
         {
             return await _context.Pets.FindAsync(id);            
         }
 
-        public async Task AddPetAsync(Domain.Entities.Pet pet)
+        public async Task AddAsync(Domain.Entities.Pet entity)
         {
-            await _context.Pets.AddAsync(pet);
+            await _context.Pets.AddAsync(entity);
             await _context.SaveChangesAsync();
         }
 
@@ -31,7 +29,7 @@ namespace AzurePetMedicine.Pet.Api.Infrastructure
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeletePetAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             var pet = await _context.Pets.FindAsync(id);
             if (pet != null)
@@ -41,9 +39,10 @@ namespace AzurePetMedicine.Pet.Api.Infrastructure
             }
         }
 
-        public async Task<List<Domain.Entities.Pet>> GetAllPetsAsync()
+        public async Task<List<Domain.Entities.Pet>> GetAllAsync()
         {
             return await _context.Pets.ToListAsync<Domain.Entities.Pet>();
         }
+       
     }
 }

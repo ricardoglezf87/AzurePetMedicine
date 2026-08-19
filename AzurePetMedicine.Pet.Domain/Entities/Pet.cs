@@ -1,19 +1,34 @@
-using Microsoft.EntityFrameworkCore;
+using AzurePetMedicine.Common.Domains;
 using AzurePetMedicine.Pet.Domain.Events;
 
 namespace AzurePetMedicine.Pet.Domain.Entities
 {
-    public class Pet
-    {
+    public class Pet: IEntity, IMappableEntity
+    {   
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Kind { get; set; } = string.Empty;
         public int Age { get; set; }
 
+        public Pet() 
+        { 
+        }
+
         public Pet(Guid id)
         {
             Id = id;
         }
+
+        public void MapFromEntity(object obj)
+        {
+            if (obj is not Pet pet)
+                throw new ArgumentException("Invalid Entity type.");
+            Id = pet.Id;
+            Name = pet.Name;
+            Kind = pet.Kind;
+            Age = pet.Age;
+        }
+
 
         public void FlagForAdoption()
         {

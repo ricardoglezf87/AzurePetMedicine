@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AzurePetMedicine.Common
+namespace AzurePetMedicine.Common.Events
 {
     public class DomainEvent<T> 
     {
