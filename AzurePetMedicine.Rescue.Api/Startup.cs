@@ -21,9 +21,9 @@ namespace AzurePetMedicine.Rescue.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRescueDbContext(Configuration);
-            services.AddScoped<IGenericRepository<Domain.Entities.Rescue>, RescueRepository>();
+            services.AddScoped<IGenericRepository<Domain.Entities.Adopter>, RescueRepository>();
             services.AddScoped<IGenericRepository<Domain.Entities.RescuedAnimal>, RescuedAnimalRepository>();
-            services.AddScoped<RescueApplicationServices>();
+            services.AddScoped<AdopterApplicationServices>();
             services.AddHostedService<PetFlaggerForAdoptionIntegrationEventHandler>();
             services.AddControllers();
             services.AddEndpointsApiExplorer();
