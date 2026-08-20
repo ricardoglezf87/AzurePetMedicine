@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AzurePetMedicine.Rescue.Api.Infrastructure
 {
-    public class RescueRepository : IGenericRepository<Domain.Entities.Rescue>
+    public class RescueRepository : IGenericRepository<Domain.Entities.Adopter>
     {
         private readonly RescueDbContext _context;
 
@@ -12,36 +12,36 @@ namespace AzurePetMedicine.Rescue.Api.Infrastructure
             _context = context;
         }
 
-        public async Task<Domain.Entities.Rescue?> GetByIdAsync(Guid id)
+        public async Task<Domain.Entities.Adopter?> GetByIdAsync(Guid id)
         {
-            return await _context.Rescues.FindAsync(id);            
+            return await _context.Adopters.FindAsync(id);            
         }
 
-        public async Task AddAsync(Domain.Entities.Rescue entity)
+        public async Task AddAsync(Domain.Entities.Adopter entity)
         {
-            await _context.Rescues.AddAsync(entity);
+            await _context.Adopters.AddAsync(entity);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Domain.Entities.Rescue rescue)
+        public async Task UpdateAsync(Domain.Entities.Adopter rescue)
         {
-            _context.Rescues.Update(rescue);
+            _context.Adopters.Update(rescue);
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(Guid id)
         {
-            var rescue = await _context.Rescues.FindAsync(id);
+            var rescue = await _context.Adopters.FindAsync(id);
             if (rescue != null)
             {
-                _context.Rescues.Remove(rescue);
+                _context.Adopters.Remove(rescue);
                 await _context.SaveChangesAsync();
             }
         }
 
-        public async Task<List<Domain.Entities.Rescue>> GetAllAsync()
+        public async Task<List<Domain.Entities.Adopter>> GetAllAsync()
         {
-            return await _context.Rescues.ToListAsync<Domain.Entities.Rescue>();
+            return await _context.Adopters.ToListAsync<Domain.Entities.Adopter>();
         }
        
     }

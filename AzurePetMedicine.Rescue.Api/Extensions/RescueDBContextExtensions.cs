@@ -7,7 +7,7 @@ namespace AzurePetMedicine.Rescue.Api.Extensions
     {
         public static void AddRescueDbContext(this IServiceCollection services, IConfiguration configuration) =>
             services.AddDbContext<RescueDbContext>(options =>
-                options.UseSqlite("Data Source=Rescues.db"));
+                options.UseSqlite("Data Source=../Rescues.db"));
 
 
         public static void EnsureRescueDatabaseCreated(this IApplicationBuilder app)

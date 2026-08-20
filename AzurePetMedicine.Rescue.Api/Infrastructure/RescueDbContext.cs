@@ -6,7 +6,7 @@ namespace AzurePetMedicine.Rescue.Api.Infrastructure
 {
     public class RescueDbContext : DbContext
     {
-        public DbSet<Domain.Entities.Rescue> Rescues { get; set; }
+        public DbSet<Domain.Entities.Adopter> Adopters { get; set; }
 
         public DbSet<Domain.Entities.RescuedAnimal> RescuedAnimals { get; set; }
 
@@ -17,18 +17,18 @@ namespace AzurePetMedicine.Rescue.Api.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Domain.Entities.Rescue>(entity =>
+            modelBuilder.Entity<Domain.Entities.Adopter>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.Date).IsRequired();
-                entity.Property(e => e.Description).IsRequired().HasMaxLength(500);
+                entity.OwnsOne(e => e.Name);
+                entity.OwnsOne(e => e.PhoneNumber);
             });
 
             modelBuilder.Entity<Domain.Entities.RescuedAnimal>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.AdopterId).IsRequired();
-                entity.Property(e => e.RescuedAnimalAdoptionStatus).IsRequired();
+                entity.Property(e => e.AdopterId);
+                entity.Property(e => e.RescuedAnimalAdoptionStatus);
             });
         }
     }

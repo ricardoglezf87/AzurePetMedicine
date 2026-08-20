@@ -34,15 +34,22 @@ namespace AzurePetMedicine.Rescue.Api.IntegrationEvents
 
         private async Task ReceiveMessage(string jsonBody)
         {
-            var eventData = JsonConvert.DeserializeObject<PetFlaggedForAdoptionIntegrationEvent>(jsonBody);
-            _logger.LogInformation("Message received from simulator for pet: {Name}", eventData?.Name);
-            using var scope = _serviceScopeFactory.CreateScope();
-            var repo = scope.ServiceProvider.GetRequiredService<IGenericRepository<Domain.Entities.RescuedAnimal>>();
-            var dbContext = scope.ServiceProvider.GetRequiredService<RescueDbContext>();
-            dbContext.RescueAnimalsMetadata.Add(eventData ??
-                throw new ArgumentException("Invalid event data."));
-            var rescuedAnimal = new RescuedAnimal(eventData.Id);
-            await repo.AddAsync(rescuedAnimal);
+            try
+            {
+                var eventData = JsonConvert.DeserializeObject<PetFlaggedForAdoptionIntegrationEvent>(jsonBody);
+                _logger.LogInformation("Message received from simulator for pet: {Name}", eventData?.Name);
+                using var scope = _serviceScopeFactory.CreateScope();
+                var repo = scope.ServiceProvider.GetRequiredService<IGenericRepository<Domain.Entities.RescuedAnimal>>();
+                var dbContext = scope.ServiceProvider.GetRequiredService<RescueDbContext>();
+                dbContext.RescueAnimalsMetadata.Add(eventData ??
+                    throw new ArgumentException("Invalid event data."));
+                var rescuedAnimal = new RescuedAnimal(eventData.Id);
+                await repo.AddAsync(rescuedAnimal);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error processing message: {Message}", ex.Message);
+            }
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
