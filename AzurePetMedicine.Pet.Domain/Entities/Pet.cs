@@ -37,6 +37,12 @@ namespace AzurePetMedicine.Pet.Domain.Entities
             DomainEvents.PetFlaggedForAdoption.Publish(new PetFlaggedForAdoption(Id, Name, Kind, Age));
         }
 
+        public void TransferredToHospital()
+        {
+            Validate();
+            DomainEvents.PetTransferredToHospital.Publish(new PetTransferredToHospital(Id, Name, Kind, Age));
+        }
+
         private void Validate()
         {
             if (string.IsNullOrWhiteSpace(Name))
