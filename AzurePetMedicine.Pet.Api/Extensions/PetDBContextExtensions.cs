@@ -7,7 +7,7 @@ namespace AzurePetMedicine.Pet.Api.Extensions
     {
         public static void AddPetDbContext(this IServiceCollection services, IConfiguration configuration) =>
             services.AddDbContext<PetDbContext>(options =>
-                options.UseSqlite("Data Source=Pets.db"));
+                options.UseSqlite("Data Source=../Pets.db"));
 
 
         public static void EnsurePetDatabaseCreated(this IApplicationBuilder app)

@@ -1,14 +1,15 @@
 using AzurePetMedicine.Common.Domains;
 using AzurePetMedicine.Pet.Domain.Events;
+using AzurePetMedicine.Pets.Domain.ValueObjects;
 
 namespace AzurePetMedicine.Pet.Domain.Entities
 {
     public class Pet: IEntity, IMappableEntity
     {   
         public Guid Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Kind { get; set; } = string.Empty;
-        public int Age { get; set; }
+        public PetName Name { get; set; } 
+        public PetKind Kind { get; set; } 
+        public PetAge Age { get; set; }
 
         public Pet() 
         { 

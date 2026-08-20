@@ -15,9 +15,9 @@ namespace AzurePetMedicine.Pet.Api.Infrastructure
             modelBuilder.Entity<Domain.Entities.Pet>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.Name).IsRequired();
-                entity.Property(e => e.Kind).IsRequired();
-                entity.Property(e => e.Age).IsRequired();
+                entity.OwnsOne(e => e.Name);
+                entity.OwnsOne(e => e.Kind);
+                entity.OwnsOne(e => e.Age);
             });
         }
     }

@@ -13,6 +13,10 @@
       {
         "Path": "..\\AzurePetMedicine.Rescue.Api\\AzurePetMedicine.Rescue.Api.csproj",
         "Action": "Start"
+      },
+      {
+        "Path": "..\\AzurePetMedicine.Rescue.Query.Api\\AzurePetMedicine.Rescue.Query.Api.csproj",
+        "Action": "Start"
       }
     ]
   }
