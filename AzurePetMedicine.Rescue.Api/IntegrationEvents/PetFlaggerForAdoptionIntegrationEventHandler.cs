@@ -1,5 +1,10 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using AzurePetMedicine.Common.Domains;
+using AzurePetMedicine.Rescue.Api.Infrastructure;
+using AzurePetMedicine.Rescue.Domain.Entities;
+using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Runtime.InteropServices;
 
 namespace AzurePetMedicine.Rescue.Api.IntegrationEvents
 {
@@ -8,24 +13,36 @@ namespace AzurePetMedicine.Rescue.Api.IntegrationEvents
         private readonly ILogger<PetFlaggerForAdoptionIntegrationEventHandler> _logger;
         private readonly HubConnection _hubConnection;
         private readonly IConfiguration _configuration;
+        private readonly IServiceScopeFactory _serviceScopeFactory;
 
         public PetFlaggerForAdoptionIntegrationEventHandler(
             ILogger<PetFlaggerForAdoptionIntegrationEventHandler> logger,
+            IServiceScopeFactory serviceScopeFactory,
             IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
+            _serviceScopeFactory = serviceScopeFactory;
 
             _hubConnection = new HubConnectionBuilder()
                 .WithUrl(_configuration["serverurl"] + "/messageHub")
                 .WithAutomaticReconnect()
                 .Build();
 
-            _hubConnection.On<string>("ReceiveMessage", (jsonBody) =>
-            {
-                var eventData = JsonConvert.DeserializeObject<PetFlaggedForAdoptionIntegrationEvent>(jsonBody);
-                _logger.LogInformation("Message received from simulator for pet: {Name}", eventData?.Name);
-            });
+            _hubConnection.On<string>("ReceiveMessage", async (jsonBody) =>  await ReceiveMessage(jsonBody));
+        }
+
+        private async Task ReceiveMessage(string jsonBody)
+        {
+            var eventData = JsonConvert.DeserializeObject<PetFlaggedForAdoptionIntegrationEvent>(jsonBody);
+            _logger.LogInformation("Message received from simulator for pet: {Name}", eventData?.Name);
+            using var scope = _serviceScopeFactory.CreateScope();
+            var repo = scope.ServiceProvider.GetRequiredService<IGenericRepository<Domain.Entities.RescuedAnimal>>();
+            var dbContext = scope.ServiceProvider.GetRequiredService<RescueDbContext>();
+            dbContext.RescueAnimalsMetadata.Add(eventData ??
+                throw new ArgumentException("Invalid event data."));
+            var rescuedAnimal = new RescuedAnimal(eventData.Id);
+            await repo.AddAsync(rescuedAnimal);
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)

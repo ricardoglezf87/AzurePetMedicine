@@ -23,18 +23,18 @@ namespace AzurePetMedicine.Rescue.Api.Infrastructure
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Domain.Entities.Rescue rescye)
+        public async Task UpdateAsync(Domain.Entities.Rescue rescue)
         {
-            _context.Rescues.Update(rescye);
+            _context.Rescues.Update(rescue);
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(Guid id)
         {
-            var rescye = await _context.Rescues.FindAsync(id);
-            if (rescye != null)
+            var rescue = await _context.Rescues.FindAsync(id);
+            if (rescue != null)
             {
-                _context.Rescues.Remove(rescye);
+                _context.Rescues.Remove(rescue);
                 await _context.SaveChangesAsync();
             }
         }

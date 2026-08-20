@@ -1,8 +1,4 @@
 using AzurePetMedicine.Common.Domains;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Principal;
-using System.Xml.Linq;
 
 namespace AzurePetMedicine.Rescue.Domain.Entities
 {
