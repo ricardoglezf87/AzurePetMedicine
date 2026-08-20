@@ -32,12 +32,9 @@ namespace AzurePetMedicine.Rescue.Api.ApplicationServices
 
         public async Task HandleCommandAsync(SetAdopterPhoneNumberCommand command)
         {
-            var adopter = await _repository.GetByIdAsync(command.id);
-            if (adopter == null)
-            {
-                throw new KeyNotFoundException($"Adopter with ID {command.id} not found.");
-            }
-            adopter.PhoneNumber = new AdopterPhoneNumber(command.phoneNumber);
+            var adopter = await _repository.GetByIdAsync(command.id)
+                ?? throw new KeyNotFoundException($"Adopter with ID {command.id} not found.");            
+            adopter.PhoneNumber = command.phoneNumber;
             await _repository.UpdateAsync(adopter);
         }
 

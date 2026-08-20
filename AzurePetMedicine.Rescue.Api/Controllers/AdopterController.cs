@@ -1,5 +1,4 @@
-﻿using AzurePetMedicine.Common.Api;
-using AzurePetMedicine.Rescue.Api.ApplicationServices;
+﻿using AzurePetMedicine.Rescue.Api.ApplicationServices;
 using AzurePetMedicine.Rescue.Api.Command;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -22,8 +21,16 @@ namespace AzurePetMedicine.Rescue.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAdopter([FromBody] CreateAdopterCommand command)
         {
-            await _rescueApplicationServices.HandleCommandAsync(command);
-            return new OkResult();
+            try
+            {
+                await _rescueApplicationServices.HandleCommandAsync(command);
+                return new OkResult();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, "An error occurred while processing the request.");
+            }
         }
 
         [HttpPut("phonenumber")]

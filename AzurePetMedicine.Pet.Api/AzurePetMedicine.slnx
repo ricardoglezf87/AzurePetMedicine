@@ -4,6 +4,7 @@
   </Folder>
   <Folder Name="/Pet/">
     <Project Path="../AzurePetMedicine.Pet.Domain/AzurePetMedicine.Pet.Domain.csproj" />
+    <Project Path="../AzurePetMedicine.Pet.Query.Api/AzurePetMedicine.Pet.Query.Api.csproj" Id="0e2db00b-d69e-40bb-a1b9-a5f7c4e9068d" />
     <Project Path="AzurePetMedicine.Pet.Api.csproj" />
   </Folder>
   <Folder Name="/Rescue/">
