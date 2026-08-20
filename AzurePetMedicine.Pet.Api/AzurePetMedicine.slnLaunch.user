@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "Nuevo perfil",
+    "Projects": [
+      {
+        "Path": "AzurePetMedicine.Pet.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "..\\AzurePetMedicine.ServiceBus\\AzurePetMedicine.ServiceBus.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "..\\AzurePetMedicine.Rescue.Api\\AzurePetMedicine.Rescue.Api.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
