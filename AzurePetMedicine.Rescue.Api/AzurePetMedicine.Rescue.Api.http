@@ -1,0 +1,11 @@
+@AzurePetMedicine.Rescue.Api_HostAddress = http://localhost:5031
+
+GET {{AzurePetMedicine.Pet.Api_HostAddress}}/swagger/
+Accept: application/json
+
+###
+
+GET {{AzurePetMedicine.Pet.Api_HostAddress}}/swagger/1
+Accept: application/json
+
+###

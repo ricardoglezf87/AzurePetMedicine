@@ -1,10 +1,11 @@
 ﻿using AzurePetMedicine.Common.Domains;
-using AzurePetMedicine.Pet.Api.ApplicationServices;
-using AzurePetMedicine.Pet.Api.Extensions;
-using AzurePetMedicine.Pet.Api.Infrastructure;
+using AzurePetMedicine.Rescue.Api.ApplicationServices;
+using AzurePetMedicine.Rescue.Api.Extensions;
+using AzurePetMedicine.Rescue.Api.Infrastructure;
+using AzurePetMedicine.Rescue.Api.IntegrationEvents;
 using AzurePetMedicine.ServiceBus.Infrastructure;
 
-namespace AzurePetMedicine.Pet.Api
+namespace AzurePetMedicine.Rescue.Api
 {
     public class Startup
     {
@@ -19,9 +20,10 @@ namespace AzurePetMedicine.Pet.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddPetDbContext(Configuration);
-            services.AddScoped<IGenericRepository<Domain.Entities.Pet>, PetRepository>();
-            services.AddScoped<PetApplicationServices>();
+            services.AddRescueDbContext(Configuration);
+            services.AddScoped<IGenericRepository<Domain.Entities.Rescue>, RescueRepository>();            
+            services.AddScoped<RescueApplicationServices>();
+            services.AddHostedService<PetFlaggerForAdoptionIntegrationEventHandler>();
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
@@ -31,7 +33,7 @@ namespace AzurePetMedicine.Pet.Api
                 services.AddHttpServiceBusSimulator(Configuration["serverurl"] ?? 
                     throw  new Exception("Server URL is not configured"));
             }
-
+            
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -43,7 +45,7 @@ namespace AzurePetMedicine.Pet.Api
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 });                
             }
-            app.EnsurePetDatabaseCreated();
+            app.EnsureRescueDatabaseCreated();
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();

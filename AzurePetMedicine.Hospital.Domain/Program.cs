@@ -23,15 +23,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Obtener todas las hospitals
 app.MapGet("/api/hospital", async (AppDbContext db) =>
     await db.Hospitals.ToListAsync());
 
-// Obtener mascota por Id
 app.MapGet("/api/hospital/{id}", async (int id, AppDbContext db) =>
     await db.Hospitals.FindAsync(id) is Hospital hospital ? Results.Ok(hospital) : Results.NotFound());
 
-// Crear nueva mascota
 app.MapPost("/api/hospital", async (Hospital hospital, AppDbContext db) =>
 {
     db.Hospitals.Add(hospital);

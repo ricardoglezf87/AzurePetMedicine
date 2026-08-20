@@ -19,9 +19,9 @@ namespace AzurePetMedicine.Pet.Domain.Entities
             Id = id;
         }
 
-        public void MapFromEntity(object obj)
+        public void MapFromEntity(object entity)
         {
-            if (obj is not Pet pet)
+            if (entity is not Pet pet)
                 throw new ArgumentException("Invalid Entity type.");
             Id = pet.Id;
             Name = pet.Name;

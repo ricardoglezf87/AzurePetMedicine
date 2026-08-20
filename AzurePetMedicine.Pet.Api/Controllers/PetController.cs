@@ -9,13 +9,13 @@ namespace AzurePetMedicine.Pet.Api.Controllers
     public class PetController : GenericController<Domain.Entities.Pet>
     {
         private readonly ILogger<PetController> _logger;
-        private readonly PetApplicationServices petApplicationServices;
+        private readonly PetApplicationServices _petApplicationServices;
 
         public PetController(ILogger<PetController> logger, PetApplicationServices petApplicationServices)
             : base(petApplicationServices, logger)
         {
             _logger = logger;
-            this.petApplicationServices = petApplicationServices;
+            _petApplicationServices = petApplicationServices;
         }
 
 
@@ -24,12 +24,12 @@ namespace AzurePetMedicine.Pet.Api.Controllers
         {
             try
             {
-                await petApplicationServices.flagforadoption(Id);
+                await _petApplicationServices.flagforadoption(Id);
                 return Ok();
             }
             catch (KeyNotFoundException ex)
             {
-                Logger.LogInformation(ex, ex.Message);
+                _logger.LogInformation(ex, ex.Message);
                 return NotFound(ex.Message);
             }
             catch (Exception ex)

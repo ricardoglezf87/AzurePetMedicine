@@ -1,7 +1,7 @@
 using AzurePetMedicine.Common.ApplicationServices;
 using AzurePetMedicine.Common.Domains;
 using AzurePetMedicine.Pet.Domain.Events;
-using AzurePetMedicine.Pet.Domain.IntegrationEvents;
+using AzurePetMedicine.Pet.Api.IntegrationEvents;
 using AzurePetMedicine.ServiceBus.Infrastructure;
 
 namespace AzurePetMedicine.Pet.Api.ApplicationServices
@@ -9,8 +9,7 @@ namespace AzurePetMedicine.Pet.Api.ApplicationServices
     public class PetApplicationServices : GenericCrudService<Domain.Entities.Pet>
     {               
         public PetApplicationServices(
-            IGenericRepository<Domain.Entities.Pet> repository,
-            IConfiguration configuration,
+            IGenericRepository<Domain.Entities.Pet> repository,            
             IEventPublisher eventPublisher) 
             : base(repository)
         {

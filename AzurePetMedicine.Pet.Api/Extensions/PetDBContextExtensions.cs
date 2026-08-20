@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AzurePetMedicine.Pet.Api.Extensions
 {
-    public static class PetDBContextExtensions
+    public static class PetDbContextExtensions
     {
-        public static void AddPetDBContext(this IServiceCollection services, IConfiguration configuration) =>
+        public static void AddPetDbContext(this IServiceCollection services, IConfiguration configuration) =>
             services.AddDbContext<PetDbContext>(options =>
                 options.UseSqlite("Data Source=Pets.db"));
 

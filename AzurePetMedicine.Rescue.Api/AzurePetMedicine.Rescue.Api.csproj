@@ -4,16 +4,16 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <InvariantGlobalization>true</InvariantGlobalization>
-    <PublishAot>false</PublishAot>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="10.0.11" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AzurePetMedicine.Pet.Domain\AzurePetMedicine.Pet.Domain.csproj" />
+    <ProjectReference Include="..\AzurePetMedicine.Common\AzurePetMedicine.Common.csproj" />
+    <ProjectReference Include="..\AzurePetMedicine.Rescue.Domain\AzurePetMedicine.Rescue.Domain.csproj" />
   </ItemGroup>
-  
+
 </Project>
