@@ -1,6 +1,5 @@
 <Solution>
   <Project Path="../AzurePetMedicine.Common/AzurePetMedicine.Common.csproj" />
-  <Project Path="../AzurePetMedicine.Hospital.Domain/AzurePetMedicine.Hospital.Domain.csproj" />
   <Project Path="../AzurePetMedicine.Pet.Domain/AzurePetMedicine.Pet.Domain.csproj" />
   <Project Path="../AzurePetMedicine.Rescue.Api/AzurePetMedicine.Rescue.Api.csproj" Id="a85602ba-33bd-43bf-bcb9-42b79652e226" />
   <Project Path="../AzurePetMedicine.Rescue.Domain/AzurePetMedicine.Rescue.Domain.csproj" />
