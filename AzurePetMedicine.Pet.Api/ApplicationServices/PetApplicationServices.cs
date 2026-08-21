@@ -1,9 +1,7 @@
-using AzurePetMedicine.Common.ApplicationServices;
 using AzurePetMedicine.Common.Domains;
 using AzurePetMedicine.Pet.Api.Commands;
 using AzurePetMedicine.Pet.Api.IntegrationEvents;
 using AzurePetMedicine.Pet.Domain.Events;
-using AzurePetMedicine.Pet.Api.Commands;
 using AzurePetMedicine.ServiceBus.Infrastructure;
 
 namespace AzurePetMedicine.Pet.Api.ApplicationServices
@@ -22,6 +20,12 @@ namespace AzurePetMedicine.Pet.Api.ApplicationServices
             {
                 var integrationEventHandler = new PetFlaggedForAdoptionIntegrationEvent(c.Id, c.Name, c.Kind, c.Age);
                 await eventPublisher.PublishAsync(integrationEventHandler, "adoption-topic");
+            });
+
+            DomainEvents.PetTransferredToHospital.Register(async c =>
+            {
+                var integrationEventHandler = new PetTransferredToHospitalIntegrationEvent(c.Id, c.Name, c.Kind, c.Age);
+                await eventPublisher.PublishAsync(integrationEventHandler, "hospital-topic");
             });
         }
 
@@ -66,6 +70,14 @@ namespace AzurePetMedicine.Pet.Api.ApplicationServices
                 ?? throw new KeyNotFoundException($"Entity of type Pet with Id '{command.id}' was not found.");
             
             pet.FlagForAdoption();
+        }
+
+        public async Task HandleCommandAsync(TransferredToHospitalCommand command)
+        {
+            var pet = await _repository.GetByIdAsync(command.id)
+                ?? throw new KeyNotFoundException($"Entity of type Pet with Id '{command.id}' was not found.");
+
+            pet.TransferredToHospital();
         }
     }
 }

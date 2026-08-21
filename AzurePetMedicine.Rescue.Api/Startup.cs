@@ -20,6 +20,7 @@ namespace AzurePetMedicine.Rescue.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHealthChecks();
             services.AddRescueDbContext(Configuration);
             services.AddScoped<IGenericRepository<Domain.Entities.Adopter>, RescueRepository>();
             services.AddScoped<IGenericRepository<Domain.Entities.RescuedAnimal>, RescuedAnimalRepository>();
@@ -52,6 +53,7 @@ namespace AzurePetMedicine.Rescue.Api
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/health");
                 endpoints.MapControllers();
             } );
         }

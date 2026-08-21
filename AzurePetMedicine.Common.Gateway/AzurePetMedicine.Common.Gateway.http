@@ -1,0 +1,6 @@
+@AzurePetMedicine.Common.Gateway_HostAddress = http://localhost:5263
+
+GET {{AzurePetMedicine.Common.Gateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

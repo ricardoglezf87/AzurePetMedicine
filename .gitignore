@@ -21,3 +21,11 @@ AzurePetMedicine.Rescue.Query.Api/obj/
 AzurePetMedicine.Rescue.Query.Api/bin/
 AzurePetMedicine.Pet.Query.Api/bin/
 AzurePetMedicine.Pet.Query.Api/obj/
+AzurePetMedicine.Hospital.Api/bin/
+AzurePetMedicine.Hospital.Api/obj/
+AzurePetMedicine.Hospital.Query.Api/bin/
+AzurePetMedicine.Hospital.Query.Api/obj/
+AzurePetMedicine.Common.Gateway/bin/
+AzurePetMedicine.Common.Gateway/obj/
+AzurePetMedicine.Hospital.Infraestructure/obj/
+AzurePetMedicine.Hospital.Infraestructure/bin/
