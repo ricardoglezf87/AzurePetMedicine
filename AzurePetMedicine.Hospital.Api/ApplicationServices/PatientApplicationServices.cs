@@ -1,6 +1,7 @@
 using AzurePetMedicine.Common.Domains;
 using AzurePetMedicine.Hospital.Api.Command;
 using AzurePetMedicine.Hospital.Domain.Entities;
+using AzurePetMedicine.Hospital.Domain.Repositories;
 using AzurePetMedicine.Hospital.Domain.ValueObjects;
 using AzurePetMedicine.ServiceBus.Infrastructure;
 using System.Transactions;
@@ -9,44 +10,40 @@ namespace AzurePetMedicine.Hospital.Api.ApplicationServices
 {   
     public class PatientApplicationServices 
     {
-        private readonly IGenericRepository<Patient> _repository;
+        private readonly IPatientAggregateStore _patientAggregateStore;
 
         public PatientApplicationServices(
-            IGenericRepository<Domain.Entities.Patient> repository)            
-        {     
-            _repository = repository;
+            IPatientAggregateStore patientAggregateStore)            
+        {
+            _patientAggregateStore = patientAggregateStore;
         }
 
         public async Task HandleCommandAsync(AdmitPatientCommand command)
         {
-            var patient = await _repository.GetByIdAsync(command.id)
-                ?? throw new KeyNotFoundException($"Patient with ID {command.id} not found.");
-            patient.Status = PatientStatus.Admitted;
-            await _repository.UpdateAsync(patient);
+            var patient = await _patientAggregateStore.LoadAsync(command.id);
+            patient.AdmitPatient();
+            await _patientAggregateStore.SaveAsync(patient);
         }
 
         public async Task HandleCommandAsync(DischargePatientCommand command)
         {
-            var patient = await _repository.GetByIdAsync(command.id)
-                ?? throw new KeyNotFoundException($"Patient with ID {command.id} not found.");
-            patient.Status = PatientStatus.Discharged;
-            await _repository.UpdateAsync(patient);
+            var patient = await _patientAggregateStore.LoadAsync(command.id);            
+            patient.DischargedPatient();
+            await _patientAggregateStore.SaveAsync(patient);
         }
 
         public async Task HandleCommandAsync(SetBloodTypeCommand command)
         {
-            var patient = await _repository.GetByIdAsync(command.id)
-                ?? throw new KeyNotFoundException($"Patient with ID {command.id} not found.");
-            patient.BloodType = command.bloodType;
-            await _repository.UpdateAsync(patient);
+            var patient = await _patientAggregateStore.LoadAsync(command.id);
+            patient.SetBloodType(new PatientBloodType(command.bloodType));
+            await _patientAggregateStore.SaveAsync(patient);
         }
 
         public async Task HandleCommandAsync(SetWeightCommand command)
         {
-            var patient = await _repository.GetByIdAsync(command.id)
-                ?? throw new KeyNotFoundException($"Patient with ID {command.id} not found.");
-            patient.Weight = command.weight;
-            await _repository.UpdateAsync(patient);
+            var patient = await _patientAggregateStore.LoadAsync(command.id);
+            patient.SetWeight(new PatientWeight(command.weight));
+            await _patientAggregateStore.SaveAsync(patient);
         }
 
     }

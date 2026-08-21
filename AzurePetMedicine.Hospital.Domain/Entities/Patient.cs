@@ -24,6 +24,26 @@ namespace AzurePetMedicine.Hospital.Domain.Entities
         {            
         }
 
+        public void SetBloodType(PatientBloodType bloodType)
+        {
+            ApplyDomainEvent(new PatientBloodTypeSetEvent(Id, bloodType));
+        }
+
+        public void SetWeight(PatientWeight weight)
+        {
+            ApplyDomainEvent(new PatientWeightSetEvent(Id, weight));
+        }
+
+        public void AdmitPatient()
+        {
+            ApplyDomainEvent(new PatientAdmittedEvent(Id));
+        }
+
+        public void DischargedPatient()
+        {
+            ApplyDomainEvent(new PatientDischargedEvent(Id));
+        }
+
         protected override void ChangeState(IDomainEvent domainEvent)
         {
             switch(domainEvent)

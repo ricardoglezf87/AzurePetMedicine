@@ -6,6 +6,7 @@
   <Folder Name="/Hospital/">
     <Project Path="../AzurePetMedicine.Hospital.Api/AzurePetMedicine.Hospital.Api.csproj" Id="d3c6434b-6366-4572-9728-e7f64188e1ee" />
     <Project Path="../AzurePetMedicine.Hospital.Domain/AzurePetMedicine.Hospital.Domain.csproj" Id="09a07623-d3ae-4d91-9c14-b8a9178039e5" />
+    <Project Path="../AzurePetMedicine.Hospital.Infraestructure/AzurePetMedicine.Hospital.Infraestructure.csproj" Id="528ec039-4ead-407e-9442-47ffa9062723" />
     <Project Path="../AzurePetMedicine.Hospital.Query.Api/AzurePetMedicine.Hospital.Query.Api.csproj" Id="3d5d6f02-f175-4a81-a5c5-a737b301af44" />
   </Folder>
   <Folder Name="/Pet/">

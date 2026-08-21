@@ -3,6 +3,8 @@ using AzurePetMedicine.Hospital.Api.ApplicationServices;
 using AzurePetMedicine.Hospital.Api.Extensions;
 using AzurePetMedicine.Hospital.Api.Infrastructure;
 using AzurePetMedicine.Hospital.Api.IntegrationEvents;
+using AzurePetMedicine.Hospital.Domain.Repositories;
+using AzurePetMedicine.Hospital.Infraestructure.Repositories;
 using AzurePetMedicine.ServiceBus.Infrastructure;
 
 namespace AzurePetMedicine.Hospital.Api
@@ -22,7 +24,7 @@ namespace AzurePetMedicine.Hospital.Api
         {
             services.AddHealthChecks();
             services.AddHospitalDbContext(Configuration);
-            services.AddScoped<IGenericRepository<Domain.Entities.Patient>, PatientRepository>();
+            services.AddSingleton<IPatientAggregateStore, PatientAggregateStore>();
             services.AddScoped<PatientApplicationServices>();
             services.AddHostedService<PetTransferredToHospitalIntegrationEventHandle>();
             services.AddControllers();

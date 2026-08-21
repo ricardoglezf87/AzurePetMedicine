@@ -20,7 +20,7 @@ namespace AzurePetMedicine.Rescue.Query.Api.Controllers
         {
             string sql = @"
                 SELECT *
-                FROM Patients";
+                FROM PatientMetadata";
             using var connection = new SqliteConnection("Data Source=../Hospitals.db");            
             var orderDetail = (await connection.QueryAsync(sql)).ToList();            
             return Ok(orderDetail);

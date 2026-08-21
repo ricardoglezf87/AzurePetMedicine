@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AzurePetMedicine.Common\AzurePetMedicine.Common.csproj" />
     <ProjectReference Include="..\AzurePetMedicine.Hospital.Domain\AzurePetMedicine.Hospital.Domain.csproj" />
+    <ProjectReference Include="..\AzurePetMedicine.Hospital.Infraestructure\AzurePetMedicine.Hospital.Infraestructure.csproj" />
   </ItemGroup>
 
 </Project>

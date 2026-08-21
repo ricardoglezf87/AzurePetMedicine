@@ -1,6 +1,8 @@
 ﻿using AzurePetMedicine.Common.Domains;
 using AzurePetMedicine.Hospital.Api.Infrastructure;
 using AzurePetMedicine.Hospital.Domain.Entities;
+using AzurePetMedicine.Hospital.Domain.Repositories;
+using AzurePetMedicine.Hospital.Infraestructure.Repositories;
 using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json;
 
@@ -12,15 +14,18 @@ namespace AzurePetMedicine.Hospital.Api.IntegrationEvents
         private readonly HubConnection _hubConnection;
         private readonly IConfiguration _configuration;
         private readonly IServiceScopeFactory _serviceScopeFactory;
+        private readonly IPatientAggregateStore _patientAggregateStore;
 
         public PetTransferredToHospitalIntegrationEventHandle(
             ILogger<PetTransferredToHospitalIntegrationEventHandle> logger,
             IServiceScopeFactory serviceScopeFactory,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IPatientAggregateStore patientAggregateStore)
         {
             _logger = logger;
             _configuration = configuration;
             _serviceScopeFactory = serviceScopeFactory;
+            _patientAggregateStore = patientAggregateStore; 
 
             _hubConnection = new HubConnectionBuilder()
                 .WithUrl(_configuration["serverurl"] + "/messageHub")
@@ -36,16 +41,15 @@ namespace AzurePetMedicine.Hospital.Api.IntegrationEvents
             {
                 var eventData = JsonConvert.DeserializeObject<PetTransferredToHospitalIntegrationEvent>(jsonBody);
                 _logger.LogInformation("Message received from simulator for pet: {name}", eventData?.name);
-                using var scope = _serviceScopeFactory.CreateScope();
-                var repo = scope.ServiceProvider.GetRequiredService<IGenericRepository<Domain.Entities.Patient>>();
+                using var scope = _serviceScopeFactory.CreateScope();                
                 var dbContext = scope.ServiceProvider.GetRequiredService<HospitalDbContext>();
                 if(dbContext.PatientMetadata.Find(eventData?.id) == null)
                 {
                     dbContext.PatientMetadata.Add(eventData ??
                     throw new ArgumentException("Invalid event data."));
                 }               
-                var hospitalizedAnimal = new Patient(eventData.id);
-                await repo.AddAsync(hospitalizedAnimal);
+                var patient = new Patient(eventData.id);
+                await _patientAggregateStore.SaveAsync(patient);
             }
             catch (Exception ex)
             {
