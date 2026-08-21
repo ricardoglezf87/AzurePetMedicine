@@ -20,6 +20,7 @@ namespace AzurePetMedicine.Hospital.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHealthChecks();
             services.AddHospitalDbContext(Configuration);
             services.AddScoped<IGenericRepository<Domain.Entities.Patient>, PatientRepository>();
             services.AddScoped<PatientApplicationServices>();
@@ -51,6 +52,7 @@ namespace AzurePetMedicine.Hospital.Api
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/health");
                 endpoints.MapControllers();
             } );
         }

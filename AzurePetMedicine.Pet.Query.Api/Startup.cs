@@ -14,7 +14,7 @@
         public void ConfigureServices(IServiceCollection services)
         {
             SQLitePCL.Batteries.Init();
-
+            services.AddHealthChecks();
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
@@ -34,6 +34,7 @@
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/health");
                 endpoints.MapControllers();
             });
         }
