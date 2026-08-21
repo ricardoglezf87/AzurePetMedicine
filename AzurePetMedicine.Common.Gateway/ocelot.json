@@ -1,8 +1,10 @@
 {
   "Routes": [
-    // Hospital Query API (5015)
+    // --------------------------------------------------
+    // AzurePetMedicine.Hospital.Query.Api (Puerto 5015)
+    // --------------------------------------------------
     {
-      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamPathTemplate": "/HospitalQuery",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -10,12 +12,15 @@
           "Port": 5015
         }
       ],
-      "UpstreamPathTemplate": "/hospital-query-api/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "UpstreamPathTemplate": "/HospitalQuery",
+      "UpstreamHttpMethod": [ "GET" ]
     },
-    // Hospital Command API (5016)
+
+    // --------------------------------------------------
+    // AzurePetMedicine.Hospital.Api (Puerto 5016)
+    // --------------------------------------------------
     {
-      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamPathTemplate": "/Patient/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -23,12 +28,15 @@
           "Port": 5016
         }
       ],
-      "UpstreamPathTemplate": "/hospital-api/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "UpstreamPathTemplate": "/Patient/{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT" ]
     },
-    // Pet Command API (5110)
+
+    // --------------------------------------------------
+    // AzurePetMedicine.Pet.Api (Puerto 5110)
+    // --------------------------------------------------
     {
-      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamPathTemplate": "/Pet",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -36,12 +44,27 @@
           "Port": 5110
         }
       ],
-      "UpstreamPathTemplate": "/pet-api/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "UpstreamPathTemplate": "/Pet",
+      "UpstreamHttpMethod": [ "POST" ]
     },
-    // Pet Query API (5207)
     {
-      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamPathTemplate": "/Pet/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5110
+        }
+      ],
+      "UpstreamPathTemplate": "/Pet/{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT" ]
+    },
+
+    // --------------------------------------------------
+    // AzurePetMedicine.Pet.Query.Api (Puerto 5207)
+    // --------------------------------------------------
+    {
+      "DownstreamPathTemplate": "/PetQuery",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -49,12 +72,15 @@
           "Port": 5207
         }
       ],
-      "UpstreamPathTemplate": "/pet-query-api/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "UpstreamPathTemplate": "/PetQuery",
+      "UpstreamHttpMethod": [ "GET" ]
     },
-    // Rescue Command API (5031)
+
+    // --------------------------------------------------
+    // AzurePetMedicine.Rescue.Api (Puerto 5031)
+    // --------------------------------------------------
     {
-      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamPathTemplate": "/Adopter",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -62,12 +88,27 @@
           "Port": 5031
         }
       ],
-      "UpstreamPathTemplate": "/rescue-api/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "UpstreamPathTemplate": "/Adopter",
+      "UpstreamHttpMethod": [ "POST" ]
     },
-    // Rescue Query API (5268)
     {
-      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamPathTemplate": "/Adopter/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5031
+        }
+      ],
+      "UpstreamPathTemplate": "/Adopter/{everything}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    // --------------------------------------------------
+    // AzurePetMedicine.Rescue.Query.Api (Puerto 5268)
+    // --------------------------------------------------
+    {
+      "DownstreamPathTemplate": "/RescueQuery",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -75,12 +116,15 @@
           "Port": 5268
         }
       ],
-      "UpstreamPathTemplate": "/rescue-query-api/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "UpstreamPathTemplate": "/RescueQuery",
+      "UpstreamHttpMethod": [ "GET" ]
     },
-    // Service Bus API (5044)
+
+    // --------------------------------------------------
+    // AzurePetMedicine.ServiceBus (Puerto 5044)
+    // --------------------------------------------------
     {
-      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamPathTemplate": "/api/Messages/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -88,11 +132,14 @@
           "Port": 5044
         }
       ],
-      "UpstreamPathTemplate": "/servicebus-api/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "UpstreamPathTemplate": "/api/Messages/{everything}",
+      "UpstreamHttpMethod": [ "POST" ]
     }
   ],
 
+  // --------------------------------------------------
+  // Configuración de Swagger Endpoints
+  // --------------------------------------------------
   "SwaggerEndPoints": [
     {
       "Key": "hospital-query",
