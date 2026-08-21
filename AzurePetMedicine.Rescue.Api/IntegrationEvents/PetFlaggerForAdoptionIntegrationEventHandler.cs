@@ -41,8 +41,11 @@ namespace AzurePetMedicine.Rescue.Api.IntegrationEvents
                 using var scope = _serviceScopeFactory.CreateScope();
                 var repo = scope.ServiceProvider.GetRequiredService<IGenericRepository<Domain.Entities.RescuedAnimal>>();
                 var dbContext = scope.ServiceProvider.GetRequiredService<RescueDbContext>();
-                dbContext.RescueAnimalsMetadata.Add(eventData ??
+                if (dbContext.RescueAnimalsMetadata.Find(eventData?.Id) == null)
+                {
+                    dbContext.RescueAnimalsMetadata.Add(eventData ??
                     throw new ArgumentException("Invalid event data."));
+                }
                 var rescuedAnimal = new RescuedAnimal(eventData.Id);
                 await repo.AddAsync(rescuedAnimal);
             }

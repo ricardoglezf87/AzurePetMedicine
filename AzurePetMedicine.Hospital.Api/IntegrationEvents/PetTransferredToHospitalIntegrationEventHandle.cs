@@ -39,9 +39,11 @@ namespace AzurePetMedicine.Hospital.Api.IntegrationEvents
                 using var scope = _serviceScopeFactory.CreateScope();
                 var repo = scope.ServiceProvider.GetRequiredService<IGenericRepository<Domain.Entities.Patient>>();
                 var dbContext = scope.ServiceProvider.GetRequiredService<HospitalDbContext>();
-                dbContext.PatientMetadata.Add(eventData ??
+                if(dbContext.PatientMetadata.Find(eventData?.id) == null)
+                {
+                    dbContext.PatientMetadata.Add(eventData ??
                     throw new ArgumentException("Invalid event data."));
-
+                }               
                 var hospitalizedAnimal = new Patient(eventData.id);
                 await repo.AddAsync(hospitalizedAnimal);
             }
