@@ -1,4 +1,6 @@
-﻿namespace AzurePetMedicine.ServiceBus.Infrastructure
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace AzurePetMedicine.ServiceBus.Infrastructure
 {
     public static class ServiceBusServiceConfigurationExtensions
     {

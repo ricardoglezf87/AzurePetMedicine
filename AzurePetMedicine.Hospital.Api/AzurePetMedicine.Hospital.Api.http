@@ -1,0 +1,6 @@
+@AzurePetMedicine.Hospital.Api_HostAddress = http://localhost:5016
+
+GET {{AzurePetMedicine.Hospital.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

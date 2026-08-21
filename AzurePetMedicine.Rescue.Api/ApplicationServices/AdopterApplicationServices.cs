@@ -1,4 +1,3 @@
-using AzurePetMedicine.Common.ApplicationServices;
 using AzurePetMedicine.Common.Domains;
 using AzurePetMedicine.Rescue.Api.Command;
 using AzurePetMedicine.Rescue.Domain.Entities;

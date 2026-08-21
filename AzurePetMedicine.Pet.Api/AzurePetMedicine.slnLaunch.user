@@ -21,6 +21,18 @@
       {
         "Path": "..\\AzurePetMedicine.Pet.Query.Api\\AzurePetMedicine.Pet.Query.Api.csproj",
         "Action": "Start"
+      },
+      {
+        "Path": "..\\AzurePetMedicine.Hospital.Api\\AzurePetMedicine.Hospital.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "..\\AzurePetMedicine.Hospital.Query.Api\\AzurePetMedicine.Hospital.Query.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "..\\AzurePetMedicine.Common.Gateway\\AzurePetMedicine.Common.Gateway.csproj",
+        "Action": "Start"
       }
     ]
   }
