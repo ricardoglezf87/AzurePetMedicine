@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/Common/">
+    <Project Path="../AzurePetMedicine.Common.Gateway/AzurePetMedicine.Common.Gateway.csproj" Id="cef1bafa-bd97-4a85-b485-08e0160d1277" />
     <Project Path="../AzurePetMedicine.Common/AzurePetMedicine.Common.csproj" />
   </Folder>
   <Folder Name="/Hospital/">

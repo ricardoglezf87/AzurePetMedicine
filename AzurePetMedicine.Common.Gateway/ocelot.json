@@ -1,0 +1,175 @@
+{
+  "Routes": [
+    // Hospital Query API (5015)
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5015
+        }
+      ],
+      "UpstreamPathTemplate": "/hospital-query-api/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+    // Hospital Command API (5016)
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5016
+        }
+      ],
+      "UpstreamPathTemplate": "/hospital-api/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+    // Pet Command API (5110)
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5110
+        }
+      ],
+      "UpstreamPathTemplate": "/pet-api/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+    // Pet Query API (5207)
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5207
+        }
+      ],
+      "UpstreamPathTemplate": "/pet-query-api/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+    // Rescue Command API (5031)
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5031
+        }
+      ],
+      "UpstreamPathTemplate": "/rescue-api/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+    // Rescue Query API (5268)
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5268
+        }
+      ],
+      "UpstreamPathTemplate": "/rescue-query-api/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+    // Service Bus API (5044)
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5044
+        }
+      ],
+      "UpstreamPathTemplate": "/servicebus-api/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    }
+  ],
+
+  "SwaggerEndPoints": [
+    {
+      "Key": "hospital-query",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "Hospital Query API",
+          "Version": "v1",
+          "Url": "http://localhost:5015/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "hospital-command",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "Hospital Command API",
+          "Version": "v1",
+          "Url": "http://localhost:5016/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "pet-command",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "Pet Command API",
+          "Version": "v1",
+          "Url": "http://localhost:5110/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "pet-query",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "Pet Query API",
+          "Version": "v1",
+          "Url": "http://localhost:5207/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "rescue-command",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "Rescue Command API",
+          "Version": "v1",
+          "Url": "http://localhost:5031/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "rescue-query",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "Rescue Query API",
+          "Version": "v1",
+          "Url": "http://localhost:5268/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "servicebus",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "Service Bus API",
+          "Version": "v1",
+          "Url": "http://localhost:5044/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+}

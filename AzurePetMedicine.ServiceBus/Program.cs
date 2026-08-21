@@ -1,12 +1,15 @@
 using Azure.Messaging.ServiceBus;
 using AzurePetMedicine.ServiceBus.Server;
 using AzurePetMedicine.ServiceBus.Server.Hubs;
+using Microsoft.Azure.Amqp.Framing;
 using Spotflow.InMemory.Azure.ServiceBus;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
+builder.Services.AddHealthChecks();
+builder.Services.AddSwaggerGen();
 
 var provider = new InMemoryServiceBusProvider();
 var ns = provider.AddNamespace("AzurePetMedicine");
@@ -38,6 +41,15 @@ var app = builder.Build();
 
 app.UseRouting();
 app.MapControllers();
-app.MapHub<MessageHub>("/messageHub"); 
+app.MapHub<MessageHub>("/messageHub");
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    });
+}
 
 app.Run();
